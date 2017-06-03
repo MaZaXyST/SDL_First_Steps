@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1496077940 source:/home/mazyaka/GitRepos/SDL_First_Steps/main.cpp
+1496077940 source:/home/mazyaka/GitRepos/SDL_First_Steps/SDL_First_Steps#1/main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_mixer.h>

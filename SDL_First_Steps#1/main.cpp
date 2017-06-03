@@ -124,6 +124,7 @@ int main(int argc, char** argv)
 
     SDL_RenderPresent(renderer);
     SDL_Delay(2000);
+
     SDL_DestroyTexture(background);
     SDL_DestroyTexture(image);
     SDL_DestroyRenderer(renderer);
