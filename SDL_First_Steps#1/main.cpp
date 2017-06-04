@@ -69,40 +69,42 @@ int main(int, char**){
         SDL_Quit();
         return 1;
 	}
-	SDL_Texture *background = loadTexture("background.png", renderer);
-	SDL_Texture *image = loadTexture("image.png", renderer);
-	if(background == nullptr || image == nullptr){
-        SDL_DestroyTexture(background);
+	SDL_Texture *image = loadTexture("img/image.png", renderer);
+	if (image == nullptr){
         SDL_DestroyTexture(image);
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         IMG_Quit();
         SDL_Quit();
-        return -1;
-    }
-    for(int i = 0; i < 3; ++i){
-    SDL_RenderClear(renderer);
-
-    //Determinate how man tiles we'll need to fill the screen
-    int xTiles = SCREEN_WIDTH / TILE_SIZE;
-    int yTiles = SCREEN_HEIGHT / TILE_SIZE;
-
-    //Draw the tiles by calculating their position
-    for (int i = 0; i < xTiles * yTiles; ++i){
-        int x = i % xTiles;
-        int y = i / xTiles;
-        renderTexture(background, renderer, x* TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        return 1;
     }
     int iW, iH;
     SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
-    int x = SCREEN_WIDTH / 2 - iW / 2;
-    int y = SCREEN_HEIGHT / 2 - iH / 2;
-    renderTexture(image,renderer, x, y);
+    int x = SCREEN_WIDTH / 2 - iW /2;
+    int y = SCREEN_HEIGHT / 2 - iH /2;
 
+    SDL_Event e;
+    bool quit = false;
+    while (!quit){
+        while(SDL_PollEvent(&e)){
+
+        if (e.type == SDL_QUIT){
+            quit = true;
+        }
+        if (e.type == SDL_KEYDOWN){
+            quit = true;
+        }
+        if (e.type == SDL_MOUSEBUTTONDOWN){
+            quit = true;
+        }
+
+        }
+    //Rendering
+    SDL_RenderClear(renderer);
+    renderTexture(image, renderer, x, y);
     SDL_RenderPresent(renderer);
-    SDL_Delay(1000);
+
     }
-    SDL_DestroyTexture(background);
     SDL_DestroyTexture(image);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
